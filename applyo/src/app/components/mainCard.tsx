@@ -177,33 +177,7 @@ function MainCard() {
           </div>
         </div>
 
-        {/* <div className="lg:hidden sticky top-0 z-50 flex justify-between mt-4 bg-white px-3 py-2 shadow-sm">
-        <div className="flex gap-2">
-          <button className="px-6 py-2 rounded-3xl text-sm cursor-pointer bg-[#3B71FE] text-white hover:bg-blue-700 transition">
-            Continue application
-          </button>
-          <LuBell
-            size={32}
-            className="border border-gray-400 rounded-full p-2 font-medium text-gray-400 cursor-pointer hover:bg-gray-100"
-          />
-        </div>
-        <div>
-          <div className="gap-2 flex items-center">
-            <IoShareSocialOutline
-              size={32}
-              className="border border-gray-400 rounded-full p-2 font-medium text-gray-400 cursor-pointer hover:bg-gray-100"
-            />
-            <AiOutlineDownload
-              size={32}
-              className="border border-gray-400 rounded-full p-2 font-medium text-gray-400 cursor-pointer hover:bg-gray-100"
-            />
-            <FaRegBookmark
-              size={32}
-              className="border border-gray-400 rounded-full p-2 font-medium text-gray-400 cursor-pointer hover:bg-gray-100"
-            />
-          </div>
-        </div>
-      </div> */}
+   
       </div>
       <div>
      

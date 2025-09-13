@@ -10,7 +10,7 @@ import { LuBell } from "react-icons/lu";
 import { IoShareSocialOutline } from "react-icons/io5";
 
 interface DescriptionCardProps {
-  isMenuUp: boolean; // receive the menu state from Home
+  isMenuUp: boolean; 
 }
 
 const tabs = ["Overview", "Placements", "Courses", "Contact"];
@@ -21,7 +21,7 @@ const DescriptionCard: React.FC<DescriptionCardProps> = ({ isMenuUp }) => {
   return (
     <div className="lg:mx-24">
 
-      {/* Hide this sticky section when side menu is open */}
+  
       {!isMenuUp && (
         <div className="lg:hidden sticky top-0 z-50 flex justify-between bg-white px-3 py-2 ">
           <div className="flex gap-2">
@@ -52,7 +52,7 @@ const DescriptionCard: React.FC<DescriptionCardProps> = ({ isMenuUp }) => {
         </div>
       )}
 
-      {/* Tabs */}
+  
       <div className="flex gap-2 lg:gap-4 border-b border-gray-300">
         {tabs.map((tab) => (
           <button
@@ -69,12 +69,12 @@ const DescriptionCard: React.FC<DescriptionCardProps> = ({ isMenuUp }) => {
         ))}
       </div>
 
-      {/* Rest of your content stays unchanged */}
+    
       <div className="flex flex-col justify-center items-center">
         <div className="grid grid-cols-1 xl:grid-cols-6 p-4">
           <div className="xl:col-span-2">
             <div className="sticky top-20 flex flex-col items-center gap-4 border-2 border-gray-100 rounded-lg p-5 w-full">
-              {/* Left column content remains the same */}
+            
               <div className="flex flex-col gap-3">
                 <div className="flex items-center gap-6 md:gap-3 max-lg:gap-3 lg:gap-6">
                   <button className="px-10 lg:px-15 py-2 flex gap-3 items-center rounded-3xl text-sm cursor-pointer bg-[#3B71FE] text-white hover:bg-blue-700 transition">
