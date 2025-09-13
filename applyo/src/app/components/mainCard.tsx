@@ -12,18 +12,22 @@ interface BreadcrumbProps {
 
 function Breadcrumb({ items }: BreadcrumbProps) {
   return (
-    <nav className="flex items-center space-x-2 text-xs mt-4">
+    <nav className="flex flex-wrap items-center space-x-1 sm:space-x-2 text-xs sm:text-sm md:text-base mt-4">
       {items.map((item, index) => {
         const isLast = index === items.length - 1;
         return (
           <span key={index} className="flex items-center">
             <span
-              className={isLast ? "text-black font-medium" : "text-gray-500"}
+              className={`${
+                isLast
+                  ? "text-black font-medium"
+                  : "text-gray-500 hover:text-blue-600 transition"
+              } truncate max-w-[100px] sm:max-w-none`}
             >
               {item}
             </span>
             {!isLast && (
-              <span className="mx-2 text-gray-400">
+              <span className="mx-1 sm:mx-2 text-gray-400">
                 <Image
                   src="/assets/arrow.png"
                   alt="arrow"
@@ -38,8 +42,7 @@ function Breadcrumb({ items }: BreadcrumbProps) {
     </nav>
   );
 }
-
-function Tags({ tags }: { tags: string[] }) {
+export function Tags({ tags }: { tags: string[] }) {
   const [showAll, setShowAll] = useState(false);
 
   const visibleTags = showAll ? tags : tags.slice(0, 3);
@@ -91,25 +94,30 @@ function MainCard() {
     ],
   };
 
+  const [clicked, setClicked] = useState(false);
+
   return (
-    <div className="p-4 mx-26">
+    <div className="p-4 relative lg:mx-26">
       <Breadcrumb items={breadcrumbItems} />
+      {/* Mobile Sticky Section */}
+
+
 
       <div className="mt-6  rounded-lg p-4  bg-white">
         <div className="flex justify-between">
           <h2 className="text-3xl font-semibold mb-2">{college.name}</h2>{" "}
-          <div className="flex gap-3 items-center">
+          <div className="hidden lg:flex gap-3 items-center">
             <IoShareSocialOutline
               size={40}
-              className="border border-[#E6E8EC] rounded-full p-2  cursor-pointer hover:bg-gray-100"
+              className="border border-gray-400 rounded-full p-2 text-gray-400  cursor-pointer hover:bg-gray-100"
             />
             <AiOutlineDownload
               size={40}
-              className="border border-[#E6E8EC] rounded-full p-2  cursor-pointer hover:bg-gray-100"
+              className="border  border-gray-400 rounded-full p-2 text-gray-400  cursor-pointer hover:bg-gray-100"
             />
             <FaRegBookmark
               size={40}
-              className="border border-[#E6E8EC] rounded-full p-2  cursor-pointer hover:bg-gray-100"
+              className="border  border-gray-400 rounded-full p-2 text-gray-400 cursor-pointer hover:bg-gray-100"
             />
           </div>
         </div>
@@ -129,38 +137,82 @@ function MainCard() {
 
           <Tags tags={college.tags} />
         </div>
-        <div className="flex gap-3 mt-6">
+        <div className="hidden lg:flex gap-3 mt-6">
           <button className="px-6 py-2 rounded-3xl text-sm cursor-pointer bg-[#3B71FE] text-white hover:bg-blue-700 transition">
             Continue application
           </button>
-          <button className="px-3 py-2 border-2 text-sm flex items-center gap-2  cursor-pointer font-semibold border-[#E6E8EC] rounded-3xl text-gray-700  transition">
-            <LuBell className="text-gray-500" size={18} />
-            Keep me notified
-          </button>
-          <button className="px-3 flex items-center gap-2 py-2 border-2 text-sm cursor-pointer font-semibold border-green-600 rounded-3xl text-green-600  transition">
-            <LuBellRing size={18} />
-            <p>We&#39;ll notify you</p>
-          </button>
+          {!clicked ? (
+            <button
+              onClick={() => setClicked(true)}
+              className="px-3 py-2 border-2 text-sm flex items-center gap-2 cursor-pointer font-semibold border-[#E6E8EC] rounded-3xl text-gray-700 transition"
+            >
+              <LuBell className="text-gray-500" size={18} />
+              Keep me notified
+            </button>
+          ) : (
+            <button className="px-3 flex items-center gap-2 py-2 border-2 text-sm cursor-pointer font-semibold border-green-600 rounded-3xl text-green-600 transition">
+              <LuBellRing size={18} />
+              <p>We&apos;ll notify you</p>
+            </button>
+          )}
         </div>
 
-        <div className="flex gap-3 mt-4">
-          {college.images.map((src, index) => (
-            <div
-              key={index}
-              className={`relative overflow-hidden rounded-lg 
-        ${index === 0 ? "h-84 w-260 aspect-video" : "h-84 w-80"} 
+        <div className="flex flex-col">
+          <div className="flex gap-3 mt-4 overflow-x-auto w-full scrollbar-hide">
+            {college.images.map((src, index) => (
+              <div
+                key={index}
+                className={`relative flex-shrink-0 overflow-hidden rounded-lg 
+        ${
+          index === 0
+            ? " h-35 lg:h-70 w-80 lg:w-170 aspect-video"
+            : " h-35 lg:h-70 w-60"
+        } 
       `}
-            >
-              <Image
-                src={src}
-                alt={`college-${index}`}
-                fill
-                className="object-cover"
-              />
-            </div>
-          ))}
+              >
+                <Image
+                  src={src}
+                  alt={`college-${index}`}
+                  fill
+                  className="object-cover"
+                />
+              </div>
+            ))}
+          </div>
         </div>
+
+        {/* <div className="lg:hidden sticky top-0 z-50 flex justify-between mt-4 bg-white px-3 py-2 shadow-sm">
+        <div className="flex gap-2">
+          <button className="px-6 py-2 rounded-3xl text-sm cursor-pointer bg-[#3B71FE] text-white hover:bg-blue-700 transition">
+            Continue application
+          </button>
+          <LuBell
+            size={32}
+            className="border border-gray-400 rounded-full p-2 font-medium text-gray-400 cursor-pointer hover:bg-gray-100"
+          />
+        </div>
+        <div>
+          <div className="gap-2 flex items-center">
+            <IoShareSocialOutline
+              size={32}
+              className="border border-gray-400 rounded-full p-2 font-medium text-gray-400 cursor-pointer hover:bg-gray-100"
+            />
+            <AiOutlineDownload
+              size={32}
+              className="border border-gray-400 rounded-full p-2 font-medium text-gray-400 cursor-pointer hover:bg-gray-100"
+            />
+            <FaRegBookmark
+              size={32}
+              className="border border-gray-400 rounded-full p-2 font-medium text-gray-400 cursor-pointer hover:bg-gray-100"
+            />
+          </div>
+        </div>
+      </div> */}
       </div>
+      <div>
+     
+      </div>
+     
     </div>
   );
 }

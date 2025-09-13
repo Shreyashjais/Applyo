@@ -7,7 +7,7 @@ import {
   XAxis,
   YAxis,
   CartesianGrid,
-  Tooltip,
+  // Tooltip,
   ResponsiveContainer,
   
 } from "recharts";
@@ -30,12 +30,24 @@ const TOOLTIP_CONFIG: Record<
   median: { label: "Median - CTC", color: "#5B21B6" },
 };
 
-const CustomTooltip = ({ active, payload, label }: any) => {
+// Define the types for payload entry
+interface PayloadEntry {
+  dataKey: keyof typeof TOOLTIP_CONFIG; // Ensure the key matches one of the keys in TOOLTIP_CONFIG
+  value: number | string; // Assuming value is a number or string representing CTC
+}
+
+interface CustomTooltipProps {
+  active: boolean;
+  payload: PayloadEntry[]; // payload should be an array of PayloadEntry objects
+  label: string;
+}
+
+const CustomTooltip: React.FC<CustomTooltipProps> = ({ active, payload, label }) => {
   if (active && payload && payload.length) {
     return (
       <div className="bg-white border p-2 rounded shadow-lg text-sm">
         <p className="font-semibold">{label}</p>
-        {payload.map((entry: any) => (
+        {payload.map((entry) => (
           <p key={entry.dataKey} style={{ color: TOOLTIP_CONFIG[entry.dataKey].color }}>
             {TOOLTIP_CONFIG[entry.dataKey].label}: {entry.value} LPA
           </p>
@@ -46,19 +58,20 @@ const CustomTooltip = ({ active, payload, label }: any) => {
   return null;
 };
 
-  
+
 
 
 
 function PlacementChart() {
   return (
-    <div className=" w-120 h-80 ">
-      <ResponsiveContainer width="100%" height="100%">
+    <div className="h-80 w-full ">
+    {/* // <div className=" w-120 max-xl:w-100 xl:w-120 h-80 "> */}
+      <ResponsiveContainer >
         <LineChart data={data} margin={{ top: 20, right: 30, left: 0, bottom: 0 }}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="year" />
           <YAxis />
-          <Tooltip content={<CustomTooltip />} />
+          content={CustomTooltip}
           <Line
             type="monotone"
             dataKey="highest"
@@ -84,7 +97,7 @@ function PlacementChart() {
       </ResponsiveContainer>
 
     
-      <div className="flex justify-between mt-4 gap-2 px-4 ">
+      <div className="flex  justify-between mt-4 gap-2 px-4 ">
   {[
     { src: "/assets/pwc.svg", alt: "pwc" },
     { src: "/assets/kpmg.png", alt: "kpmg" },
