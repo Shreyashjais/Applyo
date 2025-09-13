@@ -3,6 +3,7 @@ import Image from "next/image";
 import React, { useState } from "react";
 import { AiOutlineDownload } from "react-icons/ai";
 import { FaRegBookmark } from "react-icons/fa";
+import { IoIosArrowForward } from "react-icons/io";
 import { IoShareSocialOutline } from "react-icons/io5";
 import { LuBell, LuBellRing } from "react-icons/lu";
 
@@ -28,12 +29,7 @@ function Breadcrumb({ items }: BreadcrumbProps) {
             </span>
             {!isLast && (
               <span className="mx-1 sm:mx-2 text-gray-400">
-                <Image
-                  src="/assets/arrow.png"
-                  alt="arrow"
-                  height={14}
-                  width={14}
-                />
+                <IoIosArrowForward />
               </span>
             )}
           </span>
